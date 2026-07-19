@@ -1,0 +1,62 @@
+/* 全体 */
+.header {
+  background: #1e293b;
+  padding: 12px 24px;
+  color: #fff;
+}
+
+/* ナビ */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ロゴ */
+.nav__logo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+/* 右側 */
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ユーザー名 */
+.nav__user {
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+/* ボタン共通 */
+.nav__button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #38bdf8;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+/* hover */
+.nav__button:hover {
+  background: #0ea5e9;
+}
+
+/* ログインボタン専用 */
+.nav__button--login {
+  background: #22c55e;
+  color: white;
+}
+
+.nav__button--login:hover {
+  background: #16a34a;
+}
