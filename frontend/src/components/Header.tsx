@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import "./Header.css";
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const { user, handleLogout } = useAuth();
+  const navigate = useNavigate();
+
+  const onLogout = async () => {
+    await handleLogout();
+    navigate("/"); // 🔥 後で遷移
+  };
 
   return (
     <header className="header">
@@ -16,7 +22,7 @@ export default function Header() {
               <span className="nav__user">
                 こんにちは {user.name}
               </span>
-              <button className="nav__button" onClick={logout}>
+              <button className="nav__button" onClick={onLogout}>
                 ログアウト
               </button>
             </>

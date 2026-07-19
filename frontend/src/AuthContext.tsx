@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "./api";
+import { toast } from "sonner";
 
 type User = {
   id: number;
@@ -33,17 +34,24 @@ export const AuthProvider = ({ children }: any) => {
     });
 
     if (res.ok) {
-      await fetchUser();
+      await fetchUser(); // 🔥 これが最重要
     }
+
+    return res; // ←これ追加
   };
 
   const logout = async () => {
     await api("logout.php", { method: "POST" });
-    setUser(null);
+    await fetchUser(); // セッション確認で確実にnull
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    toast.success("ログアウトしました");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, handleLogout, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

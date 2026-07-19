@@ -13,5 +13,8 @@ if ($data['email'] === 'test@test.com' && $data['password'] === '1234') {
   echo json_encode(['success' => true]);
 } else {
   http_response_code(401);
-  echo json_encode(['error' => 'Invalid credentials']);
+  echo json_encode([
+    'error' => 'EMAIL_NOT_FOUND'
+  ]);
+  // echo json_encode(['error' => 'Invalid credentials']);
 }

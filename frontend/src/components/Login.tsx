@@ -1,18 +1,37 @@
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
-import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login, fetchUser } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigator = useNavigate();
 
   const handleLogin = async () => {
-    await login(email, password);
-    navigate("/");
+    try {
+      const res = await login(email, password);
+
+      if (res?.ok) {
+        toast.success("ログインしました！");
+        navigator("/");
+      } else {
+        const data = await res.json();
+
+        if (data.error === "EMAIL_NOT_FOUND") {
+          toast.error("メールアドレスが存在しません");
+        } else if (data.error === "Invalid credentials") {
+          toast.error("メールアドレスまたはパスワードが違います");
+        } else {
+          toast.error("ログインに失敗しました");
+        }
+      }
+    } catch {
+      toast.error("通信エラーが発生しました");
+    }
   };
 
   return (
