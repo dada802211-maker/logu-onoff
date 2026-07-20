@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Login from "./components/Login";
 import { Home } from "./components/Home";
 import { Toaster } from "sonner";
+import GuestRoute from "./GuestRoute";
 
 export default function App() {
   return (
@@ -14,7 +15,12 @@ export default function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="login" element={
+              <GuestRoute>
+                <Login />
+              </GuestRoute>
+            }
+            />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
